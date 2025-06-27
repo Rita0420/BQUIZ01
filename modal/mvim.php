@@ -1,10 +1,11 @@
-<h3 style='text-align:center'>新增動態文字廣告</h3>
+<h3 style='text-align:center'>新增動畫圖片</h3>
 <hr>
 <form action="./api/insert.php" method='post' enctype="multipart/form-data" >
     <div>
-        <label for="">動態文字廣告:</label>
-        <input type="text" name="text">
+        <label for="img">動畫圖片:</label>
+        <input type="file" name="img" id="">
     </div>
+
     <div>
         <input type="hidden" name="table" value="<?=$_GET['table'];?>">
         <input type="submit" value="新增">

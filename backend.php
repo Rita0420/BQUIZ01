@@ -85,6 +85,7 @@
 				<?php 
 				$do=$_GET['do']??'title';
 				$file="./backend/".$do.".php";
+				//file_exists檢查檔案或目錄是否存在
 				if(file_exists($file)){
 					include $file; 
 				}else{
