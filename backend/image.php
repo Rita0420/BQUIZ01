@@ -10,18 +10,24 @@
                     <td></td>
                 </tr>
 				<?php
-				$rows=${ucfirst($do)}->all('title');
+                $all=count(${ucfirst($do)}->all());
+                $div=3;
+                $pages=ceil($all/$div);
+                $now=$_GET['p']??1;
+                $start=($now-1)*$div;
+
+				$rows=${ucfirst($do)}->all(" limit $start,$div");
 				foreach($rows as $row):
 				?>
 
 				<tr>
-                    <td width="80%">
+                    <td>
 						<img src="./images/<?=$row['img'];?>" style="width:100px;height:68px" alt="">
 					</td>
-                    <td width="10%">
+                    <td>
 						<input type="checkbox" name="sh[]" value="<?=$row['id'];?>" <?=($row['sh'])==1?"checked":" ";?>>
 					</td>
-                    <td width="10%">
+                    <td>
 						<input type="checkbox" name="del[]" value="<?=$row['id'];?>">
 					</td>
                     <td>
@@ -34,6 +40,21 @@
 				?>
             </tbody>
         </table>
+        <div class="cent">
+            <?php
+            if($now-1>0):?>
+            <a href="?do=<?=$do;?>&p=<?=$now-1;?>"><</a>
+            <?php endif;?>
+
+            <?php for($i=1;$i<=$pages;$i++):
+                $size=($now==$i)?'24px':''; ?>
+            <a href="?do=<?=$do;?>&p=<?=$i;?>" style="font-size:<?=$size;?>"><?=$i;?></a>
+            <?php endfor;?>
+            <?php
+            if($now+1<=$pages):?>
+            <a href="?do=<?=$do;?>&p=<?=$now+1;?>">></a>
+            <?php endif;?>
+        </div>
         <table style="margin-top:40px; width:70%;">
             <tbody>
                 <tr>

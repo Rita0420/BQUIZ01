@@ -9,31 +9,53 @@
                     <td width="7%">刪除</td>
                 </tr>
                 <?php
-					$rows=${ucfirst($do)}->all('ad');
+                    $all=count(${ucfirst($do)}->all());
+                    $div=3;
+                    $pages=ceil($all/$div);
+                    $now=$_GET['p']??1;
+                    $start=($now-1)*$div;
+
+					$rows=${ucfirst($do)}->all(" limit $start,$div");
 					foreach($rows as $row):
 								?>
 
                 <tr>
                     <td width="68%">
-						<textarea name="text[]"  style="width:90%;height:60px"><?=$row['text'];?></textarea>
-					</td>
+                        <textarea name="text[]" style="width:90%;height:60px"><?=$row['text'];?></textarea>
+                    </td>
                     <td width="7%">
-                        <input type="checkbox" name="sh[]" id="" value="<?=$row['id'];?>" <?=($row['sh'])==1?"checked":" ";?>>
+                        <input type="checkbox" name="sh[]" id="" value="<?=$row['id'];?>"
+                            <?=($row['sh'])==1?"checked":" ";?>>
                     </td>
                     <td width="7%">
                         <input type="checkbox" name="del[]" id="" value="<?=$row['id'];?>">
                     </td>
                 </tr>
-				<input type="hidden" name="id[]" value="<?=$row['id'];?>">
+                <input type="hidden" name="id[]" value="<?=$row['id'];?>">
                 <?php
 					endforeach;
 								?>
             </tbody>
         </table>
+         <div class="cent">
+            <?php
+            if($now-1>0):?>
+            <a href="?do=<?=$do;?>&p=<?=$now-1;?>"><</a>
+            <?php endif;?>
+
+            <?php for($i=1;$i<=$pages;$i++):
+                $size=($now==$i)?'24px':''; ?>
+            <a href="?do=<?=$do;?>&p=<?=$i;?>" style="font-size:<?=$size;?>"><?=$i;?></a>
+            <?php endfor;?>
+            <?php
+            if($now+1<=$pages):?>
+            <a href="?do=<?=$do;?>&p=<?=$now+1;?>">></a>
+            <?php endif;?>
+        </div>
         <table style="margin-top:40px; width:70%;">
             <tbody>
                 <tr>
-                    <input type="hidden" name="table" value="<?=$do;?>">                    
+                    <input type="hidden" name="table" value="<?=$do;?>">
                     <td width="200px"><input type="button"
                             onclick="op('#cover','#cvr','./modal/<?=$do;?>.php?table=<?=$do;?>')" value="新增最新消息">
                     </td>
