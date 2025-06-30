@@ -12,31 +12,32 @@
                     <td width="10%"></td>
                 </tr>
                 <?php
-					$rows=${ucfirst($do)}->all('ad');
+					$rows=${ucfirst($do)}->all(['main_id'=>0]);
 					foreach($rows as $row):
 								?>
 
                 <tr>
                     <td width="40%">
-						<input type="text" name="text[]" value="<?=$row['text'];?>" style="width:90%">
-					</td>
+                        <input type="text" name="text[]" value="<?=$row['text'];?>" style="width:90%">
+                    </td>
                     <td width="40%">
-						<input type="text" name="href[]" value="<?=$row['href'];?>" style="width:90%">
-					</td>
-                    <td width="7%">
-                        
+                        <input type="text" name="href[]" value="<?=$row['href'];?>" style="width:90%">
                     </td>
                     <td width="7%">
-                        <input type="checkbox" name="sh[]" id="" value="<?=$row['id'];?>">
+
+                    </td>
+                    <td width="7%">
+                        <input type="checkbox" name="sh[]" id="" value="<?=$row['id'];?>" <?=($row['sh']==1)?'checked':'';?>>
                     </td>
                     <td width="7%">
                         <input type="checkbox" name="del[]" id="" value="<?=$row['id'];?>">
                     </td>
-                     <td>
-						<input type="button" value="編輯次選單" onclick="op('#cover','#cvr','./modal/update_menu.php?id=<?=$row['id'];?>&table=<?=$do;?>')">
-					</td>
+                    <td>
+                        <input type="button" value="編輯次選單"
+                            onclick="op('#cover','#cvr','./modal/submenu.php?id=<?=$row['id'];?>&table=<?=$do;?>')">
+                    </td>
                 </tr>
-				<input type="hidden" name="id[]" value="<?=$row['id'];?>">
+                <input type="hidden" name="id[]" value="<?=$row['id'];?>">
                 <?php
 					endforeach;
 								?>
@@ -45,7 +46,7 @@
         <table style="margin-top:40px; width:70%;">
             <tbody>
                 <tr>
-                    <input type="hidden" name="table" value="<?=$do;?>">                    
+                    <input type="hidden" name="table" value="<?=$do;?>">
                     <td width="200px"><input type="button"
                             onclick="op('#cover','#cvr','./modal/<?=$do;?>.php?table=<?=$do;?>')" value="新增主選單">
                     </td>
