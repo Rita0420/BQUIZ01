@@ -26,7 +26,7 @@
         
 		foreach($news as $new){
 			echo "<li class='sswww'>";
-			echo mb_substr($new['text'],0,10);
+			echo mb_substr($new['text'],0,25);
 			echo "<span class='all' style='display:none'>";
 			echo $new['text'];
 			echo "</span>";
@@ -37,7 +37,7 @@
      <div class="cent">
             <?php
             if($now-1>0):?>
-            <a href="?do=<?=$do;?>&p=<?=$now-1;?> class="bl""><</a>
+            <a href="?do=<?=$do;?>&p=<?=$now-1;?>" class="bl"><</a>
             <?php endif;?>
 
             <?php for($i=1;$i<=$pages;$i++):
