@@ -49,7 +49,7 @@
                         <?php
 						if($News->count(['sh'=>1])>5){
 						?>
-                        <a href="" style="float:right">more...</a>
+                        <a href="?do=news" style="float:right">more...</a>
                         <?php
 						}
 						?>
