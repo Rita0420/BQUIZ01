@@ -16,8 +16,7 @@
 <body>
     <div id="cover" style="display:none; ">
         <div id="coverr">
-            <a style="position:absolute; right:3px; top:4px; cursor:pointer; z-index:9999;"
-                onclick="cl('#cover')">X</a>
+            <a style="position:absolute; right:3px; top:4px; cursor:pointer; z-index:9999;" onclick="cl('#cover')">X</a>
             <div id="cvr" style="position:absolute; width:99%; height:100%; margin:auto; z-index:9898;"></div>
         </div>
     </div>
@@ -33,12 +32,35 @@
                 <div id="menuput" class="dbor">
                     <!--主選單放此-->
                     <span class="t botli">主選單區</span>
+                    <?php
+                    $mains=$Menu->all(['main_id'=>0]);
+                    foreach($mains as $main){
+                        echo "<div class='mainmu'>";
+                        echo "<a href='{$main['href']}'>";
+                        echo $main['text'];
+                        echo "</a>";
+                        if($Menu->count(['main_id'=>$main['id']])>0){
+                            $subs=$Menu->all(['main_id'=>$main['id']]);
+                            echo "<div class='mw'>";
+                            foreach($subs as $sub){
+                                echo "<div class='mainmu2'>";
+                                echo "<a href='{$sub['href']}'>";
+                                echo $sub['text'];
+                                echo "</a>";
+                                echo "</div>";
+                            }
+                            echo "</div>";
+                        }
+                        echo "</div>";
+                    }
+
+                    ?>
                 </div>
                 <div class="dbor" style="margin:3px; width:95%; height:20%; line-height:100px;">
                     <span class="t">進站總人數 :<?=$Total->find(1)['total'];?></span>
                 </div>
             </div>
-                <?php 
+            <?php 
 				$do=$_GET['do']??'main';
 				$file="./front/".$do.".php";
 				//file_exists檢查檔案或目錄是否存在
@@ -51,7 +73,7 @@
             <div id="alt"
                 style="position: absolute; width: 350px; min-height: 100px; word-break:break-all; text-align:justify;  background-color: rgb(255, 255, 204); top: 50px; left: 400px; z-index: 99; display: none; padding: 5px; border: 3px double rgb(255, 153, 0); background-position: initial initial; background-repeat: initial initial;">
             </div>
-           
+
             <div class="di di ad" style="height:540px; width:23%; padding:0px; margin-left:22px; float:left; ">
                 <!--右邊-->
                 <button style="width:100%; margin-left:auto; margin-right:auto; margin-top:2px; height:50px;"
@@ -66,7 +88,8 @@
                     foreach($images as $key => $image):
                     ?>
                     <div id="ssaa<?=$key;?>" class="cent im">
-                        <img src="./images/<?=$image['img'];?>" alt="" style="width:150px;height:103px;border:3px solid orange;margin:2px;">
+                        <img src="./images/<?=$image['img'];?>" alt=""
+                            style="width:150px;height:103px;border:3px solid orange;margin:2px;">
 
                     </div>
                     <?php endforeach ;?>
@@ -82,6 +105,7 @@
                         if (x == 1 && nowpage - 1 >= 0) {
                             nowpage--;
                         }
+                        // if (x == 2 && (nowpage + 1)  <= num * 1 -  3) {
                         if (x == 2 && (nowpage + 1) * 3 <= num * 1 + 3) {
                             nowpage++;
                         }
