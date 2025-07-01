@@ -45,6 +45,24 @@ class DB{
         
         return $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    function count(...$arg){
+        $sql="select count(*) from $this->table ";
+        if(isset($arg[0])){
+            if(is_array($arg[0])){
+                $tmp=$this->array2sql($arg[0]);
+                $sql=$sql." where ".join(" and ",$tmp);
+            }else{
+                $sql .=$arg[0];
+            }
+        }
+        
+        if (isset($arg[1])) {
+            $sql .=$arg[1];
+        }
+        
+        return $this->pdo->query($sql)->fetchColumn();
+    }
     
     function find($id){
         $sql="select * from $this->table ";
